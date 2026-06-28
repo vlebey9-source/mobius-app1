@@ -54,6 +54,34 @@
   }
   #sky canvas{position:absolute; inset:0; width:100%; height:100%; display:block;}
 
+  /* ---------- MOON ---------- */
+  .moon-glow{
+    position:absolute; top:-90px; left:50%; transform:translateX(-50%);
+    width:560px; height:560px;
+    background:radial-gradient(circle,
+      rgba(220,230,255,0.22) 0%,
+      rgba(190,205,255,0.14) 18%,
+      rgba(150,175,255,0.09) 32%,
+      rgba(120,150,255,0.05) 46%,
+      rgba(90,120,255,0.025) 60%,
+      rgba(90,120,255,0) 80%);
+    pointer-events:none;
+  }
+  .moon{
+    position:absolute; top:-18px; left:50%; transform:translateX(calc(-50% + 90px));
+    width:88px; height:88px; border-radius:50%;
+    background:
+      radial-gradient(circle at 32% 30%, rgba(255,255,255,0.55) 0%, transparent 35%),
+      radial-gradient(circle at 65% 60%, rgba(180,195,230,0.35) 0%, transparent 30%),
+      radial-gradient(circle at 70% 25%, rgba(180,195,230,0.3) 0%, transparent 25%),
+      radial-gradient(circle at 45% 75%, rgba(180,195,230,0.25) 0%, transparent 28%),
+      linear-gradient(160deg, #F4F6FC 0%, #DCE3F2 45%, #BCC6E0 100%);
+    box-shadow:
+      0 0 40px rgba(210,220,255,0.45),
+      0 0 90px rgba(160,180,255,0.25);
+    pointer-events:none;
+  }
+
   .stars{
     position:absolute; inset:0;
     background-image:
@@ -235,7 +263,15 @@
     position:relative;
     overflow:hidden;
     display:flex; align-items:center; gap:8px;
-    background:var(--card);
+    background:
+      radial-gradient(140% 100% at 50% -20%,
+        rgba(255,255,255,0.20) 0%,
+        rgba(255,255,255,0.14) 18%,
+        rgba(255,255,255,0.09) 32%,
+        rgba(255,255,255,0.05) 46%,
+        rgba(255,255,255,0.02) 60%,
+        rgba(255,255,255,0) 78%),
+      var(--card);
     border:1px solid var(--border);
     color:var(--text-0);
     font-size:13.5px; font-weight:600;
@@ -245,28 +281,20 @@
     cursor:pointer;
     transition:background .15s ease, border-color .15s ease, transform .12s ease, color .15s ease, box-shadow .2s ease;
   }
-  .rail-btn::before{
-    content:"";
-    position:absolute;
-    top:-30%; left:-10%; right:-10%; bottom:-30%;
-    border-radius:inherit;
-    background:radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0) 75%);
-    filter:blur(6px);
-    opacity:0.7;
-    pointer-events:none;
-    z-index:0;
-    transition:opacity .2s ease;
-  }
   .rail-btn svg{width:15px; height:15px; flex-shrink:0; opacity:0.85; position:relative; z-index:1;}
   .rail-btn:active{transform:scale(0.96);}
   .rail-btn.active{
-    background:linear-gradient(135deg, rgba(59,91,255,0.5) 0%, rgba(37,64,201,0.5) 100%);
+    background:
+      radial-gradient(140% 100% at 50% -20%,
+        rgba(255,255,255,0.35) 0%,
+        rgba(255,255,255,0.24) 18%,
+        rgba(255,255,255,0.15) 32%,
+        rgba(255,255,255,0.08) 46%,
+        rgba(255,255,255,0.03) 60%,
+        rgba(255,255,255,0) 78%),
+      linear-gradient(135deg, rgba(59,91,255,0.5) 0%, rgba(37,64,201,0.5) 100%);
     border-color:rgba(255,255,255,0.22);
     color:#fff;
-  }
-  .rail-btn.active::before{
-    background:radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.14) 35%, rgba(255,255,255,0) 75%);
-    opacity:0.85;
   }
   .rail-btn.active svg{opacity:1;}
   .rail-fade-l, .rail-fade-r{
@@ -324,16 +352,12 @@
   .rail-btn{
     backdrop-filter:blur(22px) saturate(180%) brightness(1.08);
     -webkit-backdrop-filter:blur(22px) saturate(180%) brightness(1.08);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.08),
-      0 8px 24px rgba(3,6,18,0.34);
+    box-shadow:0 8px 24px rgba(3,6,18,0.34);
   }
   .rail-btn.active, .news-tab.active, .gift-opt.active{
     backdrop-filter:blur(22px) saturate(200%) brightness(1.1);
     -webkit-backdrop-filter:blur(22px) saturate(200%) brightness(1.1);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.18),
-      0 8px 22px rgba(59,91,255,0.32);
+    box-shadow:0 8px 22px rgba(59,91,255,0.32);
   }
 
   /* ---------- PAGES ---------- */
@@ -504,6 +528,8 @@
 <body>
 
 <div id="sky">
+  <div class="moon-glow"></div>
+  <div class="moon"></div>
   <canvas id="comet-canvas"></canvas>
   <div class="stars"></div>
 </div>
