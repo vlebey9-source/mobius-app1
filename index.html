@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Mobius</title>
 
+<!-- Official Telegram WebApp SDK — required for window.Telegram.WebApp to
+     exist at all. Without this, user name, start_param (referral capture),
+     and haptics silently do nothing. -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <!-- Firebase SDK — used as the shared database so referrals work across
      different phones/accounts (see FIREBASE_CONFIG below). -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -41,6 +46,9 @@
   #sky{
     position:fixed; inset:0; z-index:0;
     background:
+      radial-gradient(ellipse 70% 50% at 18% 8%, rgba(124,58,237,0.16) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 45% at 85% 12%, rgba(45,212,191,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 60% at 60% 95%, rgba(91,33,182,0.12) 0%, transparent 65%),
       radial-gradient(ellipse 120% 80% at 50% -10%, var(--bg-2) 0%, var(--bg-1) 45%, var(--bg-0) 100%);
     overflow:hidden;
   }
@@ -49,16 +57,39 @@
   .stars{
     position:absolute; inset:0;
     background-image:
-      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.5) 0, transparent 60%),
-      radial-gradient(1px 1px at 70% 65%, rgba(255,255,255,0.4) 0, transparent 60%),
-      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.35) 0, transparent 60%),
-      radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.45) 0, transparent 60%),
-      radial-gradient(1px 1px at 10% 55%, rgba(255,255,255,0.3) 0, transparent 60%),
-      radial-gradient(1px 1px at 60% 10%, rgba(255,255,255,0.4) 0, transparent 60%),
-      radial-gradient(1px 1px at 92% 75%, rgba(255,255,255,0.35) 0, transparent 60%),
-      radial-gradient(1px 1px at 30% 5%, rgba(255,255,255,0.3) 0, transparent 60%);
+      radial-gradient(2px 2px at 7% 12%, rgba(255,255,255,0.95) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 18% 28%, rgba(255,255,255,0.8) 0, rgba(143,211,255,0.25) 60%, transparent 100%),
+      radial-gradient(2px 2px at 32% 6%, rgba(255,255,255,0.9) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 44% 41%, rgba(255,255,255,0.75) 0, transparent 60%),
+      radial-gradient(2.5px 2.5px at 58% 18%, rgba(255,255,255,1) 0, rgba(143,211,255,0.35) 55%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 67% 52%, rgba(255,255,255,0.7) 0, transparent 60%),
+      radial-gradient(2px 2px at 78% 9%, rgba(255,255,255,0.9) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 88% 33%, rgba(255,255,255,0.8) 0, transparent 60%),
+      radial-gradient(2px 2px at 95% 62%, rgba(255,255,255,0.85) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 4% 58%, rgba(255,255,255,0.7) 0, transparent 60%),
+      radial-gradient(2px 2px at 14% 73%, rgba(255,255,255,0.9) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 25% 88%, rgba(255,255,255,0.75) 0, transparent 60%),
+      radial-gradient(2.5px 2.5px at 38% 67%, rgba(255,255,255,1) 0, rgba(143,211,255,0.35) 55%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 49% 95%, rgba(255,255,255,0.7) 0, transparent 60%),
+      radial-gradient(2px 2px at 61% 78%, rgba(255,255,255,0.9) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 72% 91%, rgba(255,255,255,0.8) 0, transparent 60%),
+      radial-gradient(2px 2px at 84% 84%, rgba(255,255,255,0.85) 0, rgba(143,211,255,0.3) 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 92% 96%, rgba(255,255,255,0.7) 0, transparent 60%),
+      radial-gradient(1px 1px at 21% 16%, rgba(255,255,255,0.5) 0, transparent 60%),
+      radial-gradient(1px 1px at 53% 35%, rgba(255,255,255,0.45) 0, transparent 60%),
+      radial-gradient(1px 1px at 8% 41%, rgba(255,255,255,0.4) 0, transparent 60%),
+      radial-gradient(1px 1px at 70% 24%, rgba(255,255,255,0.45) 0, transparent 60%),
+      radial-gradient(1px 1px at 30% 53%, rgba(255,255,255,0.4) 0, transparent 60%),
+      radial-gradient(1px 1px at 81% 47%, rgba(255,255,255,0.45) 0, transparent 60%),
+      radial-gradient(1px 1px at 15% 84%, rgba(255,255,255,0.4) 0, transparent 60%),
+      radial-gradient(1px 1px at 63% 8%, rgba(255,255,255,0.45) 0, transparent 60%);
     background-size:100% 100%;
-    opacity:0.7;
+    animation:twinkle 5s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{
+    0%{opacity:0.65;}
+    50%{opacity:1;}
+    100%{opacity:0.75;}
   }
 
   .app{
@@ -216,10 +247,12 @@
   }
   .rail-btn::before{
     content:"";
-    position:absolute; inset:0;
+    position:absolute;
+    top:-30%; left:-10%; right:-10%; bottom:-30%;
     border-radius:inherit;
-    background:linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0) 100%);
-    opacity:0.6;
+    background:radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0) 75%);
+    filter:blur(6px);
+    opacity:0.7;
     pointer-events:none;
     z-index:0;
     transition:opacity .2s ease;
@@ -232,8 +265,8 @@
     color:#fff;
   }
   .rail-btn.active::before{
-    background:linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0) 100%);
-    opacity:0.8;
+    background:radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.14) 35%, rgba(255,255,255,0) 75%);
+    opacity:0.85;
   }
   .rail-btn.active svg{opacity:1;}
   .rail-fade-l, .rail-fade-r{
@@ -905,6 +938,10 @@
 
   // ---------- TELEGRAM USER ----------
   const tgApp = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+  if(tgApp){
+    tgApp.ready();
+    tgApp.expand();
+  }
   const tgUser = tgApp?.initDataUnsafe?.user || null;
 
   // Stable per-user id: real Telegram id when available, otherwise a
@@ -1003,7 +1040,8 @@
 
     // referral link — points at the bot with this user's id as the start param
     const botUsername = 'mobiusvpn_bot';
-    const link = `t.me/${botUsername}?start=ref_${myId}`;
+    const appName = 'mobius'; // must match the App Short Name you set in BotFather /newapp
+    const link = `t.me/${botUsername}/${appName}?startapp=ref_${myId}`;
     document.getElementById('refLinkText').textContent = link;
 
     // referred list
@@ -1231,13 +1269,6 @@
       tab.classList.add('active');
     });
   });
-
-  // Telegram WebApp init (no-op outside Telegram)
-  if(window.Telegram && window.Telegram.WebApp){
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand();
-  }
 </script>
 
 </body>
